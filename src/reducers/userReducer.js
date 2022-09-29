@@ -62,6 +62,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedUser: user,
+        users: [],
         isFetching: false,
         error: null,
       };

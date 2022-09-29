@@ -1,7 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import React from "react";
-import { connect } from "react-redux";
-import { createUserRequest } from "../../actions/actionsUser";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as ActionsUser from "../../actions/actionsUser";
 
 const initialValues = {
   firstName: "",
@@ -12,11 +13,11 @@ const initialValues = {
   isMale: true,
 };
 
-const UserForm = (props) => {
-  const { createUserRequestDispatch } = props;
+const UserForm = () => {
+  const { createUserRequest } = bindActionCreators(ActionsUser, useDispatch());
 
   const onSubmit = (values, formikBag) => {
-    createUserRequestDispatch(values);
+    createUserRequest(values);
     formikBag.resetForm();
   };
 
@@ -35,8 +36,4 @@ const UserForm = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  createUserRequestDispatch: (values) => dispatch(createUserRequest(values)),
-});
-
-export default connect(null, mapDispatchToProps)(UserForm);
+export default UserForm;
